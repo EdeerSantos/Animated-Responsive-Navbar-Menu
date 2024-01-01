@@ -1,0 +1,136 @@
+:root {
+    --color-white: #fff;
+    --color-black: #000;
+    --color-gray: #ccc;
+    --color-primary: #a5c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    font-family: sans-serif;
+    text-decoration: none; /* remove underline */
+}
+.header {
+    background-color: var(--color-primary);
+    padding-inline: 16px; /* padding-left and padding-right */     
+}
+
+.nav {
+    max-width: 1280px;
+    height: 70px;
+    margin-inline: auto; /* center the nav */
+    display: flex;
+    justify-content: space-between; /* space between the logo and the nav links */  
+    align-items: center; /* center the nav vertically */
+}
+
+.logo {
+    font-size: 48px;
+}
+
+.navList {
+    display: flex;
+    gap: 32px; 
+    list-style: none; /* remove the bullet points */
+}
+
+.navList a {
+    font-size: 18px;
+    color: var(--color-white);
+    padding-block: 16px; /* padding-top and padding-bottom */
+}
+
+.hero {
+    height: calc(100vh - 70px); /* 100% of the viewport height minus the height of the nav */
+    background: center / cover no-repeat url(../assets/bg.jpg);
+}
+
+.hamburger {
+    display: none;  
+    border: none;
+    background: none;
+    border-top: 3px solid var(--color-white);
+    cursor: pointer;
+
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: var(--color-white);
+    margin-top: 5px;
+    position: relative;
+    transition: 0.3s;
+}
+
+@media (max-width: 750px) {
+
+    .hamburger {
+        display: block;
+        z-index: 1;
+    }
+
+    .navList {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: var(--color-primary);
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        gap: 0;
+        clip-path: circle(100px at 90% -15%);
+        transition: 1s ease-out;
+        pointer-events: none;
+    }
+
+    .navList a {
+        font-size: 24px;
+        opacity: 0;
+    }
+    .navList li:nth-child(1) a {
+        transition: 0.5s 0.2s;
+    }
+    .navList li:nth-child(2) a {
+        transition: 0.5s 0.4s;
+    }
+    .navList li:nth-child(3) a {
+        transition: 0.5s 0.6s;
+    }
+    
+    /* Estilos ativos */
+
+    .nav.active .navList a {
+        opacity: 1;
+    }
+
+    .nav.active .hamburger {
+        position: fixed;
+        top: 26px;
+        right: 16px;
+        border-top-color: transparent;
+    }
+    
+    .nav.active .hamburger::before {
+        transform: rotate(135deg);
+    }
+
+    .nav.active .hamburger::after {
+        transform: rotate(-135deg);
+        top: -7px;
+    }
+
+    .nav.active .navList {
+        clip-path: circle(1500px at 90% -15%); /* 1500px is a big number to make sure the nav is fully visible */
+        pointer-events: all;
+    }
+}
